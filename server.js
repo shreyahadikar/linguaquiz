@@ -10,15 +10,11 @@ const path = require('path');
 const app = express();
 app.use(express.json());
 app.use(cors({
-  origin: [
-    "https://69196fed07d25af3b57d6f09--magenta-kringle-73c0d2.netlify.app/",
-    "http://localhost:5500",
-    "http://127.0.0.1:5500"
-  ],
+  origin: ["https://linguaquiz12.netlify.app"],
   methods: ["GET", "POST", "PUT", "DELETE"],
   credentials: true
 }));
-app.use(express.static('public'));
+app.use(express.static('frontend'));
 
 const JWT_SECRET = process.env.JWT_SECRET || 'langlink_demo_secret_please_change';
 
