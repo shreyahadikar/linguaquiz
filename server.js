@@ -9,7 +9,15 @@ const path = require('path');
 
 const app = express();
 app.use(express.json());
-app.use(cors());
+app.use(cors({
+  origin: [
+    "https://69196fed07d25af3b57d6f09--magenta-kringle-73c0d2.netlify.app/",
+    "http://localhost:5500",
+    "http://127.0.0.1:5500"
+  ],
+  methods: ["GET", "POST", "PUT", "DELETE"],
+  credentials: true
+}));
 app.use(express.static('public'));
 
 const JWT_SECRET = process.env.JWT_SECRET || 'langlink_demo_secret_please_change';
@@ -18,11 +26,11 @@ const JWT_SECRET = process.env.JWT_SECRET || 'langlink_demo_secret_please_change
 // MySQL Connection
 // ===============================
 const dbConfig = {
-  host: 'bn0zlqagjr0tcdpeq0x6-mysql.services.clever-cloud.com',
-  user: 'udxtsqbjeu5shjbn',
-  password: '9NSR3oOQkUi6wh6Ftb8C',
-  database: 'bn0zlqagjr0tcdpeq0x6',
-  port:3306,
+  host: process.env.DB_HOST,
+  user: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_NAME,
+  port: process.env.DB_PORT || 3306,
   ssl: { rejectUnauthorized: false }
 };
 
@@ -49,7 +57,8 @@ const LANG_COLUMN_MAP = {
   Rajasthani: 'progress_rajasthani',
   Punjabi: 'progress_punjabi',
   Kashmiri: 'progress_kashmiri',
-  Urdu: 'progress_urdu'
+  Urdu: 'progress_urdu',
+  Korean: 'progress_korean'
 };
 
 function getProgressColumn(lang) {
